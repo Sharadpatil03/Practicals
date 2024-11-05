@@ -1,0 +1,29 @@
+pragma solidity ^0.8.18;
+//SPDX-License-Identifier: MIT 
+
+
+
+contract Bank{
+
+    mapping(address => uint) private balances;
+
+    event Deposit(address indexed account, uint amount);
+    event Withdraw(address indexed account, uint amount);
+
+    function deposit(uint amount) public payable {
+        require(amount > 0, "Amount must be greater than zero.");
+        balances[msg.sender] += amount;
+        emit Deposit(msg.sender, amount); //Emits a Deposit event, which records the action on the blockchain.
+    }
+
+    function withdraw(uint amount) public payable {
+        require(balances[msg.sender]>amount,"No sufficient money to withdraw");
+        balances[msg.sender]-=amount;
+        emit Withdraw(msg.sender,amount); //Emits a Withdrawal event, which logs the transaction.
+    }
+
+    function displayBalance() public view returns (uint){
+          return balances[msg.sender];
+    }
+
+}
