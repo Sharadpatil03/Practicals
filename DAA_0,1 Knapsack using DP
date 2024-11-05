@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int knapsack(int W, vector<int>& profits, vector<int>& weights) {
+    int n = profits.size();
+    vector<vector<int>> dp(n + 1, vector<int>(W + 1, 0));
+
+    // Build the DP table
+    for (int i = 1; i <= n; i++) {
+        for (int w = 1; w <= W; w++) {
+            if (weights[i - 1] <= w) {
+                // Include the item or exclude it
+                dp[i][w] = max(profits[i - 1] + dp[i - 1][w - weights[i - 1]], dp[i - 1][w]);
+            } else {
+                // Exclude the item
+                dp[i][w] = dp[i - 1][w];
+            }
+        }
+    }
+
+    // Maximum profit is in dp[n][W]
+    return dp[n][W];
+}
+
+int main() {
+    int W = 50; // Knapsack capacity
+
+    // List of profits and weights for 5 items
+    vector<int> profits = {60, 100, 120, 80, 50};
+    vector<int> weights = {10, 20, 30, 40, 25};
+
+    int maxProfit = knapsack(W, profits, weights);
+    cout << "Maximum profit (using 0/1 Knapsack) = " << maxProfit << endl;
+
+    return 0;
+}
