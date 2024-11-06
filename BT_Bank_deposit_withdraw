@@ -10,7 +10,7 @@ contract Bank{
     event Deposit(address indexed account, uint amount);
     event Withdraw(address indexed account, uint amount);
 
-    function deposit(uint amount) public payable {
+    function deposit(uint amount) public payable {  // This keyword allows the function to receive Ether along with the transaction.
         require(amount > 0, "Amount must be greater than zero.");
         balances[msg.sender] += amount;
         emit Deposit(msg.sender, amount); //Emits a Deposit event, which records the action on the blockchain.
