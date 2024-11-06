@@ -8,7 +8,7 @@ contract StudentData{
         uint age;
     }
 
-    Student[] public students;
+    Student[] private students;
     event StudentAdded(uint id,string name, uint age);
 
     function AddStudent(uint _id,string memory _name, uint _age) public {
