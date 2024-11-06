@@ -26,6 +26,9 @@ contract StudentData{
         Student memory student = students[index];
         return(student.id,student.name,student.age);
     }
+   function GetAllStudents() public view returns (Student[] memory) {
+       return students;
+   }
 
     fallback() external  {
         // handles external unexpected calls means data that is not in functions.
